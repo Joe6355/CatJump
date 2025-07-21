@@ -1,0 +1,12 @@
+{
+    "ru": {
+        "start_game": "начать игру",
+        "settings": "настройки",
+        "jump": "прыжок"
+    },
+    "en": {
+        "start_game": "Start Game",
+        "settings": "Settings",
+        "jump": "Jump"
+    }
+}
