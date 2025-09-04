@@ -14,6 +14,7 @@ public class LanguageManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            transform.parent = null;
             DontDestroyOnLoad(gameObject);
             LoadLocalization();
         }

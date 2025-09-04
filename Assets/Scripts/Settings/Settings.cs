@@ -9,47 +9,45 @@ public class Settings : MonoBehaviour
     public TMP_Dropdown dropdown_Language;
 
     [Header("Мобильные элементы управления")]
-    public GameObject[] mobileControlObjects; // элементы мобильного управления
+    public GameObject[] mobileControlObjects;
+
+    public PlayerController playerController;
 
     private void Start()
     {
-        // Автовыбор управления
+        playerController = FindObjectOfType<PlayerController>();
+
         int controlIndex = GetDefaultControlIndex();
         dropdown_Controller.value = controlIndex;
 
         dropdown_Controller.onValueChanged.AddListener(OnControllerChanged);
         dropdown_Language.onValueChanged.AddListener(OnLanguageChanged);
 
-        // Инициализация состояния при старте
         OnControllerChanged(dropdown_Controller.value);
         OnLanguageChanged(dropdown_Language.value);
     }
 
-    // Управление ПК/Телефон
     private void OnControllerChanged(int value)
     {
-        // 0 - ПК, 1 - Телефон
         bool isMobile = (value == 1);
 
         foreach (var obj in mobileControlObjects)
-            obj.SetActive(isMobile);
+            obj?.SetActive(isMobile);
+
+        if (playerController != null)
+            playerController.useMobileControls = isMobile;
     }
 
-    // Переключение языка
     private void OnLanguageChanged(int value)
     {
-        string selectedLanguage = dropdown_Language.options[value].text;
-        LanguageManager.Instance.SetLanguage(selectedLanguage);
-
         string langCode = (value == 0) ? "ru" : "en";
         LanguageManager.Instance.SetLanguage(langCode);
     }
 
     private int GetDefaultControlIndex()
     {
-        // 0 - ПК, 1 - Телефон
 #if UNITY_ANDROID || UNITY_IOS
-    return 1; // Телефон
+        return 1; // Телефон
 #else
         return 0; // ПК
 #endif

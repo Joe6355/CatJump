@@ -14,6 +14,10 @@ public class LocalizedText : MonoBehaviour
 
     public void UpdateText()
     {
+        if (text == null)
+            text = GetComponent<TMP_Text>();
+        if (LanguageManager.Instance == null)
+            return;
         text.text = LanguageManager.Instance.GetText(key);
     }
 }

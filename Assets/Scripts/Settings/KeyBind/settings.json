@@ -1,0 +1,7 @@
+{
+    "KeyBindings": {
+        "Left": "A",
+        "Right": "D",
+        "Jump": "Space"
+    }
+}
